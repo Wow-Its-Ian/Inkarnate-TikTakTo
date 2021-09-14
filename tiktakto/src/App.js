@@ -51,7 +51,7 @@ function App() {
   };
 
   const checkColumnWin = () => {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       if (
         boardState[0][i] === 'X' &&
         boardState[1][i] === 'X' &&
@@ -66,7 +66,7 @@ function App() {
         boardState[1][i] === 'O' &&
         boardState[2][i] === 'O'
       ) {
-        setWinner('');
+        setWinner('O');
         endGame();
         return true;
       }
@@ -116,6 +116,7 @@ function App() {
     setBoardState(emptyBoardState);
     setTurnCount(0);
     setWinner(null);
+    setDraw(false);
   };
 
   const nextTurn = () => {
@@ -129,35 +130,41 @@ function App() {
   };
 
   return (
-    <div
-      className="App"
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        gap: '1em',
-      }}
-    >
-      <Title
-        draw={draw}
-        winner={winner}
-        playerTurn={playerTurn}
-        gamePlaying={gamePlaying}
-      ></Title>
-      <GameBoard
-        nextTurn={nextTurn}
-        playerTurn={playerTurn}
-        gamePlaying={gamePlaying}
-        setBoardState={setBoardState}
-        boardState={boardState}
-      ></GameBoard>
-      {!gamePlaying && !winner && !draw && (
-        <StartButton startGame={startGame}></StartButton>
-      )}
-      {winner || draw ? (
-        <RestartButton restartGame={restartGame}></RestartButton>
-      ) : null}
+    <div className="App">
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          gap: '1em',
+          padding: '1em',
+        }}
+      >
+        <Title
+          draw={draw}
+          winner={winner}
+          playerTurn={playerTurn}
+          gamePlaying={gamePlaying}
+        ></Title>
+        <GameBoard
+          nextTurn={nextTurn}
+          playerTurn={playerTurn}
+          gamePlaying={gamePlaying}
+          setBoardState={setBoardState}
+          boardState={boardState}
+        ></GameBoard>
+        {!gamePlaying && !winner && !draw && (
+          <div>
+            <StartButton startGame={startGame}></StartButton>
+          </div>
+        )}
+        {winner || draw ? (
+          <div>
+            <RestartButton restartGame={restartGame}></RestartButton>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -215,8 +222,8 @@ function GameBoard({
         gridTemplateRows: '1fr 1fr 1fr',
         gridTemplateColumns: '1fr 1fr 1fr',
 
-        height: '500px',
-        width: '500px',
+        height: '600px',
+        width: '600px',
       }}
     >
       <div id="row1">
