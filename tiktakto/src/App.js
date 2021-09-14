@@ -143,13 +143,12 @@ function App() {
         setBoardState={setBoardState}
         boardState={boardState}
       ></GameBoard>
-      {
-        <StartButton
-          winner={winner}
-          draw={draw}
-          startGame={startGame}
-        ></StartButton>
-      }
+      {!gamePlaying && !winner && !draw && (
+        <StartButton startGame={startGame}></StartButton>
+      )}
+      {winner || draw ? (
+        <RestartButton restartGame={restartGame}></RestartButton>
+      ) : null}
     </div>
   );
 }
@@ -212,21 +211,48 @@ function GameBoard({
     >
       <div id="row1">
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(0, 0)}
           onClick={() => choseSquare(0, 0)}
         >
           {boardState[0][0]}
         </div>
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(1, 0)}
           onClick={() => choseSquare(1, 0)}
         >
           {boardState[1][0]}
         </div>
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(2, 0)}
           onClick={() => choseSquare(2, 0)}
         >
@@ -235,21 +261,48 @@ function GameBoard({
       </div>
       <div id="row2">
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(0, 1)}
           onClick={() => choseSquare(0, 1)}
         >
           {boardState[0][1]}
         </div>
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(1, 1)}
           onClick={() => choseSquare(1, 1)}
         >
           {boardState[1][1]}
         </div>
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(2, 1)}
           onClick={() => choseSquare(2, 1)}
         >
@@ -258,21 +311,48 @@ function GameBoard({
       </div>
       <div id="row3">
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(0, 2)}
           onClick={() => choseSquare(0, 2)}
         >
           {boardState[0][2]}
         </div>
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(1, 2)}
           onClick={() => choseSquare(1, 2)}
         >
           {boardState[1][2]}
         </div>
         <div
-          style={{ border: '1px solid black', height: '100%', width: '100%' }}
+          style={{
+            border: '1px solid black',
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '40px',
+            fontWeight: 'bold',
+          }}
           onMouseOver={() => highlightSquare(2, 2)}
           onClick={() => choseSquare(2, 2)}
         >
@@ -283,7 +363,7 @@ function GameBoard({
   );
 }
 
-function StartButton({ startGame, draw, winner }) {
+function StartButton({ startGame }) {
   return (
     <button onClick={startGame}>Start Game</button> // this button should switch to restart or be invisible depending on game state
   );
