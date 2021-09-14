@@ -196,10 +196,9 @@ function GameBoard({
   const highlightSquare = (row, cell) => {
     // const boardCopy = [...boardState];
     // const rowCopy = [...boardCopy[row]];
-
-    if (boardState[row][cell] === '') {
-      console.log(row, cell);
-    }
+    // if (boardState[row][cell] === '') {
+    //   console.log(row, cell);
+    // }
   };
 
   const choseSquare = (row, cell) => {
