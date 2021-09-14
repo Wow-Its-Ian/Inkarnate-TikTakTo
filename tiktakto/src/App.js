@@ -136,6 +136,7 @@ function App() {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        gap: '1em',
       }}
     >
       <Title
@@ -222,8 +223,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -238,8 +241,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -254,8 +259,9 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+            maxmaxHeight: '200px',
+            height: '200px',
+            width: '200px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -272,8 +278,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -288,8 +296,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -304,8 +314,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -322,8 +334,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -338,8 +352,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -354,8 +370,10 @@ function GameBoard({
         <div
           style={{
             border: '1px solid black',
-            height: '100%',
-            width: '100%',
+
+            height: '200px',
+            width: '200px',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
