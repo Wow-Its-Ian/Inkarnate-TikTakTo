@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Component for thhe board
 // componets for the player icons (x o)
@@ -19,8 +19,23 @@ function App() {
   const [playerTurn, setPlayerTurn] = useState('x'); // player x will start game, playerTurn will track turn
   const [boardState, setBoardState] = useState(emptyBoardState);
 
+  useEffect(() => {
+    boardState.map((row, rowIdx) => {
+      row.map((cell, cellIdx) => {});
+    });
+  }, [boardState]);
+
+  const checkRowWin = () => {
+    boardState.map((row, rowIdx) => {
+      row.map((cell, cellIdx) => {});
+    });
+  };
+
   const startGame = () => {
     setGamePlaying(true);
+    if (playerTurn !== 'x') {
+      setPlayerTurn('x');
+    }
   };
 
   // const endGame = () => {
@@ -36,20 +51,79 @@ function App() {
     setWinner(winner);
   };
 
+  const nextTurn = () => {
+    if (playerTurn === 'x') {
+      setPlayerTurn('o');
+    }
+    if (playerTurn === 'o') {
+      setPlayerTurn('x');
+    }
+  };
+
   return (
     <div className="App">
-      <Title></Title>
-      <GameBoard></GameBoard>
+      <Title
+        winner={winner}
+        playerTurn={playerTurn}
+        gamePlaying={gamePlaying}
+      ></Title>
+      <GameBoard
+        nextTurn={nextTurn}
+        playerTurn={playerTurn}
+        gamePlaying={gamePlaying}
+        setBoardState={setBoardState}
+        boardState={boardState}
+      ></GameBoard>
       {<StartButton startGame={startGame}></StartButton>}
     </div>
   );
 }
 
-function Title() {
-  return <h1>TikTakTo</h1>;
+function Title({ winner, playerTurn, gamePlaying }) {
+  return (
+    <div>
+      <h1>TikTakTo</h1>
+      {gamePlaying ? (
+        <h2>{playerTurn} turn</h2>
+      ) : winner ? (
+        <h2>{winner} wins</h2>
+      ) : (
+        ''
+      )}
+      ;
+    </div>
+  );
 }
 
-function GameBoard() {
+function GameBoard({
+  boardState,
+  setBoardState,
+  nextTurn,
+  playerTurn,
+  gamePlaying,
+}) {
+  const highlightSquare = (row, cell) => {
+    // const boardCopy = [...boardState];
+    // const rowCopy = [...boardCopy[row]];
+
+    if (boardState[row][cell] === '') {
+      console.log(row, cell);
+    }
+  };
+
+  const choseSquare = (row, cell) => {
+    if (gamePlaying && boardState[row][cell] === '') {
+      const boardCopy = [...boardState];
+      console.log('boardCopy: ', boardCopy);
+      const rowCopy = [...boardCopy[row]];
+      rowCopy[cell] = playerTurn;
+      boardCopy[row] = rowCopy;
+
+      setBoardState(boardCopy);
+      nextTurn();
+    }
+  };
+
   return (
     <div
       style={{
@@ -64,35 +138,71 @@ function GameBoard() {
       <div id="row1">
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(0, 0)}
+          onClick={() => choseSquare(0, 0)}
+        >
+          {boardState[0][0]}
+        </div>
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(1, 0)}
+          onClick={() => choseSquare(1, 0)}
+        >
+          {boardState[1][0]}
+        </div>
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(2, 0)}
+          onClick={() => choseSquare(2, 0)}
+        >
+          {boardState[2][0]}
+        </div>
       </div>
       <div id="row2">
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(0, 1)}
+          onClick={() => choseSquare(0, 1)}
+        >
+          {boardState[0][1]}
+        </div>
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(1, 1)}
+          onClick={() => choseSquare(1, 1)}
+        >
+          {boardState[1][1]}
+        </div>
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(2, 1)}
+          onClick={() => choseSquare(2, 1)}
+        >
+          {boardState[2][1]}
+        </div>
       </div>
       <div id="row3">
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(0, 2)}
+          onClick={() => choseSquare(0, 2)}
+        >
+          {boardState[0][2]}
+        </div>
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(1, 2)}
+          onClick={() => choseSquare(1, 2)}
+        >
+          {boardState[1][2]}
+        </div>
         <div
           style={{ border: '1px solid black', height: '100%', width: '100%' }}
-        ></div>
+          onMouseOver={() => highlightSquare(2, 2)}
+          onClick={() => choseSquare(2, 2)}
+        >
+          {boardState[2][2]}
+        </div>
       </div>
     </div>
   );
