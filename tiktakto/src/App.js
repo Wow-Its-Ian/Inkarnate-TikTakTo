@@ -16,19 +16,89 @@ function App() {
   const [gamePlaying, setGamePlaying] = useState(false); // false will mean there is no game, true will mean there is
   console.log('gamePlaying: ', gamePlaying);
   const [winner, setWinner] = useState(null); // false will mean there is no game, true will mean there is
+  const [draw, setDraw] = useState(false);
   const [playerTurn, setPlayerTurn] = useState('x'); // player x will start game, playerTurn will track turn
   const [boardState, setBoardState] = useState(emptyBoardState);
+  const [turnCount, setTurnCount] = useState(0);
 
   useEffect(() => {
-    boardState.map((row, rowIdx) => {
-      row.map((cell, cellIdx) => {});
-    });
+    checkRowWin();
+    checkColumnWin();
+    checkDiagWin();
+    if (turnCount === 9 && !winner) {
+      drawGame();
+    }
   }, [boardState]);
+
+  const drawGame = () => {
+    setDraw(true);
+    setGamePlaying(false);
+  };
 
   const checkRowWin = () => {
     boardState.map((row, rowIdx) => {
-      row.map((cell, cellIdx) => {});
+      if (row[0] === 'x' && row[1] === 'x' && row[2] === 'x') {
+        setWinner('x');
+        endGame();
+        return true;
+      }
+      if (row[0] === 'o' && row[1] === 'o' && row[2] === 'o') {
+        setWinner('o');
+        endGame();
+        return true;
+      }
     });
+  };
+
+  const checkColumnWin = () => {
+    for (let i = 0; i < 2; i++) {
+      if (
+        boardState[0][i] === 'x' &&
+        boardState[1][i] === 'x' &&
+        boardState[2][i] === 'x'
+      ) {
+        setWinner('x');
+        endGame();
+        return true;
+      }
+      if (
+        boardState[0][i] === 'y' &&
+        boardState[1][i] === 'y' &&
+        boardState[2][i] === 'y'
+      ) {
+        setWinner('y');
+        endGame();
+        return true;
+      }
+    }
+  };
+
+  const checkDiagWin = () => {
+    if (
+      (boardState[0][0] === 'x' &&
+        boardState[1][1] === 'x' &&
+        boardState[2][2] === 'x') ||
+      (boardState[0][2] === 'x' &&
+        boardState[1][1] === 'x' &&
+        boardState[2][0] === 'x')
+    ) {
+      setWinner('x');
+      endGame();
+      return true;
+    }
+
+    if (
+      (boardState[0][0] === 'y' &&
+        boardState[1][1] === 'y' &&
+        boardState[2][2] === 'y') ||
+      (boardState[0][2] === 'y' &&
+        boardState[1][1] === 'y' &&
+        boardState[2][0] === 'y')
+    ) {
+      setWinner('y');
+      endGame();
+      return true;
+    }
   };
 
   const startGame = () => {
@@ -38,17 +108,14 @@ function App() {
     }
   };
 
-  // const endGame = () => {
-  //   setGamePlaying(false);
-  // };
+  const endGame = () => {
+    setGamePlaying(false);
+  };
 
   const restartGame = () => {
     setBoardState(emptyBoardState);
+    setTurnCount(0);
     setWinner(null);
-  };
-
-  const completeGame = (winner) => {
-    setWinner(winner);
   };
 
   const nextTurn = () => {
@@ -58,11 +125,13 @@ function App() {
     if (playerTurn === 'o') {
       setPlayerTurn('x');
     }
+    setTurnCount(turnCount + 1);
   };
 
   return (
     <div className="App">
       <Title
+        draw={draw}
         winner={winner}
         playerTurn={playerTurn}
         gamePlaying={gamePlaying}
@@ -74,7 +143,13 @@ function App() {
         setBoardState={setBoardState}
         boardState={boardState}
       ></GameBoard>
-      {<StartButton startGame={startGame}></StartButton>}
+      {
+        <StartButton
+          winner={winner}
+          draw={draw}
+          startGame={startGame}
+        ></StartButton>
+      }
     </div>
   );
 }
@@ -208,7 +283,7 @@ function GameBoard({
   );
 }
 
-function StartButton({ startGame }) {
+function StartButton({ startGame, draw, winner }) {
   return (
     <button onClick={startGame}>Start Game</button> // this button should switch to restart or be invisible depending on game state
   );
