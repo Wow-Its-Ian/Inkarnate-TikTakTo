@@ -17,7 +17,7 @@ function App() {
   console.log('gamePlaying: ', gamePlaying);
   const [winner, setWinner] = useState(null); // false will mean there is no game, true will mean there is
   const [draw, setDraw] = useState(false);
-  const [playerTurn, setPlayerTurn] = useState('x'); // player x will start game, playerTurn will track turn
+  const [playerTurn, setPlayerTurn] = useState('X'); // player x will start game, playerTurn will track turn
   const [boardState, setBoardState] = useState(emptyBoardState);
   const [turnCount, setTurnCount] = useState(0);
 
@@ -37,13 +37,13 @@ function App() {
 
   const checkRowWin = () => {
     boardState.map((row, rowIdx) => {
-      if (row[0] === 'x' && row[1] === 'x' && row[2] === 'x') {
-        setWinner('x');
+      if (row[0] === 'X' && row[1] === 'X' && row[2] === 'X') {
+        setWinner('X');
         endGame();
         return true;
       }
-      if (row[0] === 'o' && row[1] === 'o' && row[2] === 'o') {
-        setWinner('o');
+      if (row[0] === 'O' && row[1] === 'O' && row[2] === 'O') {
+        setWinner('O');
         endGame();
         return true;
       }
@@ -53,20 +53,20 @@ function App() {
   const checkColumnWin = () => {
     for (let i = 0; i < 2; i++) {
       if (
-        boardState[0][i] === 'x' &&
-        boardState[1][i] === 'x' &&
-        boardState[2][i] === 'x'
+        boardState[0][i] === 'X' &&
+        boardState[1][i] === 'X' &&
+        boardState[2][i] === 'X'
       ) {
-        setWinner('x');
+        setWinner('X');
         endGame();
         return true;
       }
       if (
-        boardState[0][i] === 'y' &&
-        boardState[1][i] === 'y' &&
-        boardState[2][i] === 'y'
+        boardState[0][i] === 'O' &&
+        boardState[1][i] === 'O' &&
+        boardState[2][i] === 'O'
       ) {
-        setWinner('y');
+        setWinner('');
         endGame();
         return true;
       }
@@ -75,27 +75,27 @@ function App() {
 
   const checkDiagWin = () => {
     if (
-      (boardState[0][0] === 'x' &&
-        boardState[1][1] === 'x' &&
-        boardState[2][2] === 'x') ||
-      (boardState[0][2] === 'x' &&
-        boardState[1][1] === 'x' &&
-        boardState[2][0] === 'x')
+      (boardState[0][0] === 'X' &&
+        boardState[1][1] === 'X' &&
+        boardState[2][2] === 'X') ||
+      (boardState[0][2] === 'X' &&
+        boardState[1][1] === 'X' &&
+        boardState[2][0] === 'X')
     ) {
-      setWinner('x');
+      setWinner('X');
       endGame();
       return true;
     }
 
     if (
-      (boardState[0][0] === 'y' &&
-        boardState[1][1] === 'y' &&
-        boardState[2][2] === 'y') ||
-      (boardState[0][2] === 'y' &&
-        boardState[1][1] === 'y' &&
-        boardState[2][0] === 'y')
+      (boardState[0][0] === 'O' &&
+        boardState[1][1] === 'O' &&
+        boardState[2][2] === 'O') ||
+      (boardState[0][2] === 'O' &&
+        boardState[1][1] === 'O' &&
+        boardState[2][0] === 'O')
     ) {
-      setWinner('y');
+      setWinner('O');
       endGame();
       return true;
     }
@@ -103,8 +103,8 @@ function App() {
 
   const startGame = () => {
     setGamePlaying(true);
-    if (playerTurn !== 'x') {
-      setPlayerTurn('x');
+    if (playerTurn !== 'X') {
+      setPlayerTurn('X');
     }
   };
 
@@ -119,17 +119,25 @@ function App() {
   };
 
   const nextTurn = () => {
-    if (playerTurn === 'x') {
-      setPlayerTurn('o');
+    if (playerTurn === 'X') {
+      setPlayerTurn('O');
     }
-    if (playerTurn === 'o') {
-      setPlayerTurn('x');
+    if (playerTurn === 'O') {
+      setPlayerTurn('X');
     }
     setTurnCount(turnCount + 1);
   };
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <Title
         draw={draw}
         winner={winner}
@@ -166,7 +174,6 @@ function Title({ winner, playerTurn, gamePlaying, draw }) {
       ) : (
         ''
       )}
-      ;
     </div>
   );
 }
@@ -220,7 +227,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(0, 0)}
@@ -236,7 +243,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(1, 0)}
@@ -252,7 +259,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(2, 0)}
@@ -270,7 +277,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(0, 1)}
@@ -286,7 +293,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(1, 1)}
@@ -302,7 +309,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(2, 1)}
@@ -320,7 +327,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(0, 2)}
@@ -336,7 +343,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(1, 2)}
@@ -352,7 +359,7 @@ function GameBoard({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '40px',
+            fontSize: '100px',
             fontWeight: 'bold',
           }}
           onMouseOver={() => highlightSquare(2, 2)}
