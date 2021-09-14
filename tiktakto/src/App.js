@@ -153,14 +153,16 @@ function App() {
   );
 }
 
-function Title({ winner, playerTurn, gamePlaying }) {
+function Title({ winner, playerTurn, gamePlaying, draw }) {
   return (
     <div>
       <h1>TikTakTo</h1>
-      {gamePlaying ? (
+      {gamePlaying && !draw ? (
         <h2>{playerTurn} turn</h2>
       ) : winner ? (
         <h2>{winner} wins</h2>
+      ) : draw ? (
+        <h2>draw</h2>
       ) : (
         ''
       )}
